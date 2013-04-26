@@ -24,7 +24,7 @@ else
     load tmp;
 end
 
-cd c:\alex\code
+cd c:\alex\code\LDS_PDR
 
 global session % session plotting info
 global PDR % variables used in the experiment must be global so that all the functions can use them.

@@ -327,7 +327,7 @@ CALIB_PDR = struct(...                        % MAIN PARAMETERS:
     'len_session',[], ...               % length of session (in minutes)
     'starttime',[], ...                 % session start time
     'stoptime', [], ...                 % session stop time
-    'code_path', 'c:\alex\code\',...    % path to code
+    'code_path', 'c:\alex\code\LDS_PDR\',...    % path to code
     'data_path', 'c:\alex\calib_data\',...     % flag indicates that AD recording (pupillometer) will be needed
     'base_atten',0,...                  % attenuation value to send to TDT (combining scale_val and atten gives a certain SPL in dB -- This needs to be calibrated!!!)
     'filename',[],...                   % file name for storing session data
