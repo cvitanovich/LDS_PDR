@@ -365,7 +365,8 @@ qpop16(BUF_B1);
 dpush(NPTS);
 value(0);
 qpop16(BUF_B2);				
-			
+
+return;
 seqplay(PLAY_SPEC);
 if (record)
 	seqrecord(REC_SPEC);
@@ -466,21 +467,39 @@ do
 		
 		/* plot a marker on trial sequence plot */
 		memset(str,'\0',sizeof(str));
-		n=sprintf(str,"session.trialcnt=%i; session.trialval=%10.1f;sessionPlots('Update Trial Plot');",Signalcnt+1,azimuths[loc-1]);
+		n=sprintf(str,"session.trialcnt=%i; session.trialval=%10.1f; sessionPlots('Update Trial Plot');",Signalcnt+1,azimuths[loc-1]);
 		mexEvalString(str);
 		
 		
 		rove_id = rove[Signalcnt ++] - 1; /* decrement by 1 for C indexing */
 		
 		signalScale=scalesLead[loc-2];
-		qpushf(BUF_LEAD(rove_id));
-		scale(signalScale); /* always scale with first speaker scaling value */
-		qpop16(BUF_A1);	
-
-		signalScale=scalesLag[loc-2];
-		qpushf(BUF_LAG(rove_id));
-		scale(signalScale); /* decrement by 1 to get appropriate speaker scale value */
-		qpop16(BUF_B1);
+		
+		memset(str,'\0',sizeof(str));
+		n=sprintf(str,"disp('num2str(%i)');",(rove_id+1));
+		mexEvalString(str);
+			qpushf(BUF_LEAD(rove_id));
+			qdup();
+			memset(str,'\0',sizeof(str));
+			n=sprintf(str,"left_buf=s232('popf'); figure(hDEBUG); subplot(hA); plot(left_buf);");
+			mexEvalString(str);
+			scale(signalScale); /* always scale with first speaker scaling value */
+			qpop16(BUF_A1);
+		
+		memset(str,'\0',sizeof(str));
+		n=sprintf(str,"disp('num2str(%i)');",(rove_id+1));
+		mexEvalString(str);
+			qpushf(BUF_LAG(rove_id));
+			qdup();
+			memset(str,'\0',sizeof(str));
+			n=sprintf(str,"right_buf=s232('popf'); figure(hDEBUG); subplot(hB); plot(right_buf);");
+			mexEvalString(str);
+			scale(signalScale); /* always scale with first speaker scaling value */
+			qpop16(BUF_B1);
+			
+			memset(str,'\0',sizeof(str));
+			n=sprintf(str,"text(0.5,0.7,['rove_id=num2str(%i)']);",rove_id);
+			mexEvalString(str);
 
 	}
 	else
@@ -636,20 +655,38 @@ do
 		
 			/* plot a marker on trial sequence plot */
 			memset(str,'\0',sizeof(str));
-			n=sprintf(str,"session.trialcnt=%i; session.trialval=%10.1f;sessionPlots('Update Trial Plot');",Signalcnt+1,azimuths[loc-1]);
+			n=sprintf(str,"session.trialcnt=%i; session.trialval=%10.1f; sessionPlots('Update Trial Plot');",Signalcnt+1,azimuths[loc-1]);
 			mexEvalString(str);
 
 			rove_id = rove[Signalcnt ++] - 1; /* decrement by 1 for C indexing */
 			
 			signalScale=scalesLead[loc-2];
+			
+			memset(str,'\0',sizeof(str));
+			n=sprintf(str,"disp('num2str(%i)');",(rove_id+1));
+			mexEvalString(str);
 			qpushf(BUF_LEAD(rove_id));
+			qdup();
+			memset(str,'\0',sizeof(str));
+			n=sprintf(str,"left_buf=s232('popf'); figure(hDEBUG); subplot(hA); plot(left_buf);");
+			mexEvalString(str);
 			scale(signalScale); /* always scale with first speaker scaling value */
-			qpop16(BUF_A2);	
-	
-			signalScale=scalesLag[loc-2];
+			qpop16(BUF_A2);
+			
 			qpushf(BUF_LAG(rove_id));
-			scale(signalScale); /* decrement by 1 to get appropriate speaker scale value */
+			memset(str,'\0',sizeof(str));
+			n=sprintf(str,"disp('num2str(%i)');",(rove_id+1));
+			mexEvalString(str);
+			qdup();
+			memset(str,'\0',sizeof(str));
+			n=sprintf(str,"right_buf=s232('popf');  figure(hDEBUG); subplot(hB); plot(right_buf);");
+			mexEvalString(str);
+			scale(signalScale); /* always scale with first speaker scaling value */
 			qpop16(BUF_B2);
+			
+			memset(str,'\0',sizeof(str));
+			n=sprintf(str,"text(0.5,0.7,['rove_id=num2str(%i)']);",rove_id);
+			mexEvalString(str);
 
 		}
 		else

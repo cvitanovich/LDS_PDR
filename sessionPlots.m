@@ -20,7 +20,7 @@ switch options
         
         % INIT PLOTS
         % handles
-
+        
         session.hTxt=zeros(1,10); % text handles
         session.hSub=zeros(1,10); % subplot handles
         session.hMark=zeros(1,100);

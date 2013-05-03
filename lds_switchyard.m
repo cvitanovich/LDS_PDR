@@ -44,7 +44,7 @@ PDR = struct(...                        % MAIN PARAMETERS:
     'maa_test_flag',0,...               % set to one if testing MAAs            
     'virtual',0,...                     % Freefield: virtual = 0, Headphones: virtual = 1
     'record',1,...                      % flag for recording pdr trace
-    'jitter',2,...                      % jitter trial occurance (2 bufs = +/- 1.34 s)
+    'jitter',0,...                      % jitter trial occurance (2 bufs = +/- 1.34 s)
     'ntrials',[],...                   % no. of trials in a session
     'npretrials',100,...                 % default # of habituating trials before the 1st test trial
     'n_test_trials',15,...              % default # of test trials in a session
@@ -100,7 +100,7 @@ PDR = struct(...                        % MAIN PARAMETERS:
     'SOUNDS_speaker_numbers',1:7,...
     'SOUNDS_azimuths',[-60 -50 -25 -5 5 15 30],... % 45 60],...            % actual speaker azimuths (don't change unless moving speakers)
     'SOUNDS_length',100,...              % length of sounds in ms
-    'SOUNDS_carrier_delay',-3,...                % ongoing CARRIER disparity between lead/LAG_sound sounds
+    'SOUNDS_carrier_delay',3,...                % ongoing CARRIER disparity between lead/LAG_sound sounds
     'SOUNDS_env_delay',0,...            % ongoing ENVELOPE disparity (lead/lag)
     'SOUNDS_mix',0,...                % mix fraction
     'SOUNDS_env_correlations',[],...     % calculated correlation coefficient (envelopes)
